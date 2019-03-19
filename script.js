@@ -17,9 +17,7 @@ function encrypt() {
     codeLength +
     "</strong> bits, we will have <strong>" +
     controlBits +
-    "</strong> control bits, <br>because the number <strong>" +
-    controlBits +
-    "</strong> proves the equation: " +
+    "</strong> control bits, <br>because it proves the equation: " +
     " <br> 2^k >= m+k+1 <br> The encrypted code will have: <strong>" +
     (codeLength + controlBits) +
     "</strong> bits! </div>";
@@ -42,40 +40,13 @@ function encrypt() {
 
   console.log(bits);
 
-  for (a = 0; a <= totalBitNr; a++) {
+  for (i = 0; i <= totalBitNr; i++) {
     // check if bit is x
-    if (bits[a] == "x") {
-      //console.log(a);
-
-      // for the first bit of control
-      if (a == 0) {
-        k = 0;
-        for (c = a; c <= totalBitNr; c++) {
-          if (c % 2 == 0) {
-            if (bits[c] == 1) {
-              // console.log("c is: " + c + "  " + bits[c]);
-              k++;
-            }
-          }
-        }
-        if (k % 2 != 0) {
-          bits[a] = 1;
-        }
-        console.log(bits);
-      }
-
-      // for (c = a; c <= totalBitNr; c++) {
-      //   k = 0;
-      //   for (i = c; i < totalBitNr; i++) {
-      //     console.log(i);
-
-      //     // if (bits[i] == 1) {
-      //     //   k++;
-      //     // }
-      //   }
-      // }
+    if (bits[i] == "x") {
+      changeControlBit(i, bits, totalBitNr);
     }
   }
+  // console.log(bits);
 }
 
 function powerOfTwo(x) {
@@ -102,10 +73,60 @@ function checkInput(binaryCode, length) {
       let warning =
         "<div class='alert alert-warning' role='alert'>" +
         "The script can't convert: '" +
-        binaryCode.charAt(n) +
+        binaryCode[n] +
         "' . Please remove it!" +
         "</div>";
       document.getElementById("error").innerHTML = warning;
     }
   }
+}
+
+function changeControlBit(controlBitIndex, bits, totalBitNr) {
+  // k is the number of ones
+  k = 0;
+
+  console.log("I ||  C || D || A || Bits[c] ||");
+  // looping through the bits[] from controlBitIndex to the last bit
+  for (c = controlBitIndex; c <= totalBitNr; c++) {
+    // define d=0 to use it in the while loop
+    d = 0;
+    // while loop will go from 0 to controlBitIndex
+    // ex: bit4 - 0-4, 1-4, 2-4, 3-4
+    while (d <= controlBitIndex) {
+      // we will loop from 0 to controlBitIndex in order to use a as the mod
+      for (a = 0; a < controlBitIndex / 2; a++) {
+        // ex. bit-4 .. we need to capture 4-5-6-7-12-13-14-15
+        // so we take 4 and leave 4 bits
+        if (c % controlBitIndex == a) {
+          console.log(
+            controlBitIndex +
+              " || " +
+              c +
+              " || " +
+              d +
+              " || " +
+              a +
+              " || " +
+              bits[c]
+          );
+
+          // if bit is 1 we increase k to get the number of ones
+          if (bits[c] == 1) {
+            // console.log("c is: " + c + "  " + bits[c]);
+            k++;
+          }
+        }
+      }
+      d++;
+    }
+  }
+
+  // if k is odd than control bit will be 1 else 0
+  if (k % 2 != 0) {
+    bits[controlBitIndex] = 1;
+  } else {
+    bits[controlBitIndex] = 0;
+  }
+
+  console.log(bits);
 }
