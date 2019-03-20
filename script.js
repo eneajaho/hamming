@@ -1,34 +1,43 @@
 // encrypting
 function encrypt() {
+  // gets the binary number from website
   var binary = document.getElementById("binary").value;
-  // console.log(binary[1]);
 
+  // gets the parity
+  if (document.getElementById("oddparity").checked) {
+    parity = "odd";
+  } else if (document.getElementById("evenparity").checked) {
+    parity = "even";
+  }
+
+  // declares the length of the binary number
   codeLength = binary.length;
 
-  // checks input for errors
+  // checks if the user has entered sth != 0 || 1
   checkInput(binary, codeLength);
 
-  // check how control bits should be included
+  // checks how control bits should be included
   controlBits = controlBitsNr(codeLength);
 
+  // declares the total encrypted bits number
+  let totalBitNr = codeLength + controlBits;
+  // a simple alert to show how much bits we will have
   let explain =
-    "  <div class='alert alert-info' role='alert'> There are <strong>" +
-    codeLength +
-    "</strong> bits, we will have <strong>" +
+    "  <div class='alert alert-info' role='alert'> We will have <strong>" +
     controlBits +
-    "</strong> control bits, <br>because it proves the equation: " +
-    " <br> 2^k >= m+k+1 <br> The encrypted code will have: <strong>" +
-    (codeLength + controlBits) +
+    "</strong> control bits, <br>and the encrypted code will have: <strong>" +
+    totalBitNr +
     "</strong> bits! </div>";
 
-  document.getElementById("explain").innerHTML = explain;
+  // shows the alert
+  showText("explain", explain);
 
   // creates an array of bits
-  let totalBitNr = codeLength + controlBits;
   let bits = [];
   // a - starts from 1 so we can use the powers of 2.
-  // b - to add our bits, if we add bit we increase b
+  // b - to add our bits, if we add bit, we increase b
   for (a = 1, b = 0; a <= totalBitNr; a++) {
+    // if a it's 0 or power of two add x to array else add binary bit and increase b
     if (powerOfTwo(a) || a == 0) {
       bits.push("x");
     } else {
@@ -51,9 +60,12 @@ function encrypt() {
   }
   coded += "</code>";
   console.log(bits);
-  document.getElementById("coded").innerHTML = coded;
+
+  showText("coded", coded);
+  // document.getElementById("coded").innerHTML = coded;
 }
 
+// selects control bits, so if bits[i] is x than we do the calculations and change the bit
 function selectControlBits(bits, totalBitNr) {
   bitCounter = 0;
   for (i = 0; i <= totalBitNr; i++) {
@@ -71,16 +83,12 @@ function selectControlBits(bits, totalBitNr) {
 }
 
 function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
-  console.log("ControlBit Counter" + bitCounter);
-
   let k = 0; // the number of ones
   let d = 0; // used to loop through the array
 
   for (c = controlBitIndex; c < totalBitNr; c++) {
     if (controlBitIndex == 0) {
       if (d % 2 == 0) {
-        console.log(d + " " + bits[c]);
-        console.log("");
         if (bits[c] == 1) {
           k++;
         }
@@ -88,9 +96,6 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
       d++;
     } else {
       if (d % (2 ** bitCounter * 2) < 2 ** bitCounter) {
-        console.log(d + " " + bits[c]);
-        console.log("");
-
         if (bits[c] == 1) {
           k++;
         }
@@ -99,10 +104,19 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
     }
   }
 
-  if (k % 2 != 0) {
-    return 1;
-  } else {
-    return 0;
+  if (parity == "even") {
+    if (k % 2 != 0) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+  if (parity == "odd") {
+    if (k % 2 != 0) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 }
 
@@ -140,7 +154,13 @@ function checkInput(binaryCode, length) {
         binaryCode[n] +
         "' . Please remove it!" +
         "</div>";
-      document.getElementById("error").innerHTML = warning;
+      showText("error", warning);
     }
   }
+}
+
+// a function that accepts an id and text and
+function showText(id, text) {
+  id = String(id);
+  document.getElementById(id).innerHTML = text;
 }
