@@ -38,7 +38,14 @@ function encrypt() {
   }
 
   selectControlBits(bits, totalBitNr);
+  let coded = "<code> ";
+  for (let a = 0; a < totalBitNr; a++) {
+    const element = bits[a];
+    coded += element;
+  }
+  coded += "</code>";
   console.log(bits);
+  document.getElementById("coded").innerHTML = coded;
 }
 
 function selectControlBits(bits, totalBitNr) {
@@ -91,8 +98,6 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
   } else {
     return 0;
   }
-
-  // console.log(bits);
 }
 
 function powerOfTwo(x) {
