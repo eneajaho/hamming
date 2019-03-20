@@ -38,9 +38,15 @@ function encrypt() {
   }
 
   selectControlBits(bits, totalBitNr);
+
+  // shows the number in the the webpage
   let coded = "<code> ";
   for (let a = 0; a < totalBitNr; a++) {
-    const element = bits[a];
+    //if (Math.log2(a) % 1 === 0 || a == 0) {
+    //   element = "<div class='control-bit'> " + bits[a] + " </div>";
+    // } else {
+    element = bits[a];
+    // }
     coded += element;
   }
   coded += "</code>";
@@ -107,12 +113,19 @@ function powerOfTwo(x) {
 
 //accepts the code length to find the hamming code length
 function controlBitsNr(length) {
+  let a = 0;
   for (k = 0; k <= length; k++) {
     // 2 ^ k >= m + k + 1
     if (2 ** k >= length + k + 1) {
       a = k;
       break;
     }
+  }
+  if (a == 0) {
+    let warning =
+      "<div class='alert alert-warning alert-dismissible fade show' role='alert'>The script can't convert this number because it's too short. It should be 3 or more bits! Please fix it!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button >" +
+      "</div>";
+    document.getElementById("error").innerHTML = warning;
   }
   return a;
 }

@@ -11,6 +11,7 @@
 .h3 {
   font-weight: 300;
 }
+
 .jumbotron {
   background-color: #e9ecefbd;
 }
@@ -18,7 +19,14 @@
 code {
   color: #04897c;
 }
+
 .table td,
 .table th {
   padding: 0.1em;
+}
+
+.control-bit {
+  text-decoration: underline;
+  font-weight: 500;
+  display: inline-block;
 }
