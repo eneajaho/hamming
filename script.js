@@ -1,5 +1,4 @@
 // encrypting
-
 function encrypt() {
   var binary = document.getElementById("binary").value;
   // console.log(binary[1]);
@@ -38,14 +37,61 @@ function encrypt() {
     }
   }
 
+  selectControlBits(bits, totalBitNr);
   console.log(bits);
+}
 
+function selectControlBits(bits, totalBitNr) {
+  bitCounter = 0;
   for (i = 0; i <= totalBitNr; i++) {
     // check if bit is x
     if (bits[i] == "x") {
-      changeControlBit(i, bits, totalBitNr);
+      changedBit = changeControlBit(i, bits, totalBitNr, bitCounter);
+      if (changedBit == 0) {
+        bits[i] = 0;
+      } else if (changedBit == 1) {
+        bits[i] = 1;
+      }
+      bitCounter++;
     }
   }
+}
+
+function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
+  console.log("ControlBit Counter" + bitCounter);
+
+  let k = 0; // the number of ones
+  let d = 0; // used to loop through the array
+
+  for (c = controlBitIndex; c < totalBitNr; c++) {
+    if (controlBitIndex == 0) {
+      if (d % 2 == 0) {
+        console.log(d + " " + bits[c]);
+        console.log("");
+        if (bits[c] == 1) {
+          k++;
+        }
+      }
+      d++;
+    } else {
+      if (d % (2 ** bitCounter * 2) < 2 ** bitCounter) {
+        console.log(d + " " + bits[c]);
+        console.log("");
+
+        if (bits[c] == 1) {
+          k++;
+        }
+      }
+      d++;
+    }
+  }
+
+  if (k % 2 != 0) {
+    return 1;
+  } else {
+    return 0;
+  }
+
   // console.log(bits);
 }
 
@@ -58,7 +104,7 @@ function powerOfTwo(x) {
 function controlBitsNr(length) {
   for (k = 0; k <= length; k++) {
     // 2 ^ k >= m + k + 1
-    if (Math.pow(2, k) >= length + k + 1) {
+    if (2 ** k >= length + k + 1) {
       a = k;
       break;
     }
@@ -79,47 +125,4 @@ function checkInput(binaryCode, length) {
       document.getElementById("error").innerHTML = warning;
     }
   }
-}
-
-function changeControlBit(controlBitIndex, bits, totalBitNr) {
-  // k is the number of ones
-  k = 0;
-
-  console.log("I ||  C || D || Bits[c] ||");
-  // looping through the bits[] from controlBitIndex to the last bit
-  for (c = controlBitIndex; c <= totalBitNr; c++) {
-    // define d=0 to use it in the while loop
-
-    d = 0;
-    // while loop will go from 0 to controlBitIndex
-    // ex: bit4 - 0-4, 1-4, 2-4, 3-4
-    while (d <= controlBitIndex / Math.pow(2, controlBitIndex)) {
-      // we will loop from 0 to controlBitIndex in order to use a as the mod
-      // for (a = 0; a < controlBitIndex / 2; a++) {
-      //   // ex. bit-4 .. we need to capture 4-5-6-7-12-13-14-15
-      //   // so we take 4 and leave 4 bits
-      if (c % controlBitIndex == d) {
-        console.log(
-          controlBitIndex + " || " + c + " || " + d + " || " + bits[c]
-        );
-
-        // if bit is 1 we increase k to get the number of ones
-        if (bits[c] == 1) {
-          // console.log("c is: " + c + "  " + bits[c]);
-          k++;
-        }
-        //   }
-      }
-      d++;
-    }
-  }
-
-  // if k is odd than control bit will be 1 else 0
-  if (k % 2 != 0) {
-    bits[controlBitIndex] = 1;
-  } else {
-    bits[controlBitIndex] = 0;
-  }
-
-  console.log(bits);
 }
