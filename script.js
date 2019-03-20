@@ -66,13 +66,12 @@ function encrypt() {
   }
   coded += "</code>";
 
-  console.log(newBits);
-
   showText("coded", coded);
 }
 
 // selects control bits, so if bits[i] is x than we do the calculations and change the bit
 function selectControlBits(bits, totalBitNr) {
+  // bitcounter is used to count the control bits
   bitCounter = 0;
   for (i = 0; i <= totalBitNr; i++) {
     // a variable to store our info
@@ -85,6 +84,7 @@ function selectControlBits(bits, totalBitNr) {
       } else if (changedBit == 1) {
         bits[i] = 1;
       }
+      // after we do the calculations we increase the bitcounter
       bitCounter++;
     }
   }
@@ -112,6 +112,7 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
     }
   }
 
+  // if even parity is checked in UI than we will have even parity and the function wil return respective 1 and 0
   if (parity == "even") {
     if (k % 2 != 0) {
       return 1;
@@ -119,6 +120,7 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
       return 0;
     }
   }
+  // if odd parity is checked in UI than we will have even parity and the function wil return respective 1 and 0
   if (parity == "odd") {
     if (k % 2 != 0) {
       return 0;
@@ -126,13 +128,12 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
       return 1;
     }
   }
-  Info += "";
 }
+// source : https://stackoverflow.com/questions/30924280/what-is-the-best-way-to-determine-if-a-given-number-is-a-power-of-two
 
 function powerOfTwo(x) {
   return Math.log2(x) % 1 === 0;
 }
-// source : https://stackoverflow.com/questions/30924280/what-is-the-best-way-to-determine-if-a-given-number-is-a-power-of-two
 
 //accepts the code length to find the hamming code length
 function controlBitsNr(length) {
@@ -172,8 +173,4 @@ function checkInput(binaryCode, length) {
 function showText(id, text) {
   id = String(id);
   document.getElementById(id).innerHTML = text;
-}
-
-function showInfo() {
-  document.getElementById("info").innerHTML = Info;
 }
