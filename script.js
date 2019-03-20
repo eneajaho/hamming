@@ -23,7 +23,7 @@ function encrypt() {
   let totalBitNr = codeLength + controlBits;
   // a simple alert to show how much bits we will have
   let explain =
-    "  <div class='alert alert-info' role='alert'> We will have <strong>" +
+    "  <div class=' pl-5 pr-5 alert alert-info' role='alert'> We will have <strong>" +
     controlBits +
     "</strong> control bits, <br>and the encrypted code will have: <strong>" +
     totalBitNr +
@@ -48,27 +48,35 @@ function encrypt() {
 
   selectControlBits(bits, totalBitNr);
 
+  // creates a new array and starts the bits array from 1 so we can use the powers of 2
+  newBits = [null];
+  for (a = 0; a < totalBitNr; a++) {
+    newBits.push(bits[a]);
+  }
+
   // shows the number in the the webpage
   let coded = "<code> ";
-  for (let a = 0; a < totalBitNr; a++) {
-    //if (Math.log2(a) % 1 === 0 || a == 0) {
-    //   element = "<div class='control-bit'> " + bits[a] + " </div>";
-    // } else {
-    element = bits[a];
-    // }
+  for (let a = 1; a <= totalBitNr; a++) {
+    if (Math.log2(a) % 1 === 0 || a == 0) {
+      element = "<div class='control-bit'> " + newBits[a] + " </div>";
+    } else {
+      element = newBits[a];
+    }
     coded += element;
   }
   coded += "</code>";
-  console.log(bits);
+
+  console.log(newBits);
 
   showText("coded", coded);
-  // document.getElementById("coded").innerHTML = coded;
 }
 
 // selects control bits, so if bits[i] is x than we do the calculations and change the bit
 function selectControlBits(bits, totalBitNr) {
   bitCounter = 0;
   for (i = 0; i <= totalBitNr; i++) {
+    // a variable to store our info
+    Info = "";
     // check if bit is x
     if (bits[i] == "x") {
       changedBit = changeControlBit(i, bits, totalBitNr, bitCounter);
@@ -118,6 +126,7 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
       return 1;
     }
   }
+  Info += "";
 }
 
 function powerOfTwo(x) {
@@ -163,4 +172,8 @@ function checkInput(binaryCode, length) {
 function showText(id, text) {
   id = String(id);
   document.getElementById(id).innerHTML = text;
+}
+
+function showInfo() {
+  document.getElementById("info").innerHTML = Info;
 }
