@@ -7,38 +7,38 @@ encryptBtn.addEventListener('click', function encrypt() {
 
   // gets the parity
   if (document.getElementById("oddparity").checked) {
-    parity = "odd";
+    var parity = "odd";
   } else if (document.getElementById("evenparity").checked) {
-    parity = "even";
+    var parity = "even";
   }
 
   // declares the length of the binary number
-  codeLength = binary.length;
+  var codeLength = binary.length;
 
   // checks if the user has entered sth != 0 || 1
   checkInput(binary, codeLength);
 
   // checks how control bits should be included
-  controlBits = controlBitsNr(codeLength);
+  var controlBits = controlBitsNr(codeLength);
 
   // declares the total encrypted bits number
   let totalBitNr = codeLength + controlBits;
-  // // a simple alert to show how much bits we will have
-  // let explain =
-  //   "  <div class=' pl-5 pr-5 alert alert-info' role='alert'> We will have <strong>" +
-  //   controlBits +
-  //   "</strong> control bits, <br>and the encrypted code will have: <strong>" +
-  //   totalBitNr +
-  //   "</strong> bits! </div>";
-
-  // // shows the alert
-  // showText("explain", explain);
+  // a simple alert to show how much bits we will have
+  let explain =
+    "  <div class=' pl-5 pr-5 alert alert-info' role='alert'> We will have <strong>" +
+    controlBits +
+    "</strong> control bits, <br>and the encrypted code will have: <strong>" +
+    totalBitNr +
+    "</strong> bits! </div>";
+  
+  // shows the alert
+  showText("explain", explain);
 
   // creates an array of bits
   let bits = [];
   // a - starts from 1 so we can use the powers of 2.
   // b - to add our bits, if we add bit, we increase b
-  for (a = 1, b = 0; a <= totalBitNr; a++) {
+  for (let a = 1, let b = 0; a <= totalBitNr; a++) {
     // if a it's 0 or power of two add x to array else add binary bit and increase b
     if (powerOfTwo(a) || a == 0) {
       bits.push("x");
@@ -51,8 +51,8 @@ encryptBtn.addEventListener('click', function encrypt() {
   selectControlBits(bits, totalBitNr);
 
   // creates a new array and starts the bits array from 1 so we can use the powers of 2
-  newBits = [null];
-  for (a = 0; a < totalBitNr; a++) {
+  var newBits = [null];
+  for (let a = 0; a < totalBitNr; a++) {
     newBits.push(bits[a]);
   }
 
@@ -74,13 +74,11 @@ encryptBtn.addEventListener('click', function encrypt() {
 // selects control bits, so if bits[i] is x than we do the calculations and change the bit
 function selectControlBits(bits, totalBitNr) {
   // bitcounter is used to count the control bits
-  bitCounter = 0;
-  for (i = 0; i <= totalBitNr; i++) {
-    // a variable to store our info
-    Info = "";
+  let bitCounter = 0;
+  for (let i = 0; i <= totalBitNr; i++) {
     // check if bit is x
     if (bits[i] == "x") {
-      changedBit = changeControlBit(i, bits, totalBitNr, bitCounter);
+      let changedBit = changeControlBit(i, bits, totalBitNr, bitCounter);
       if (changedBit == 0) {
         bits[i] = 0;
       } else if (changedBit == 1) {
