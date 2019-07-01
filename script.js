@@ -6,8 +6,11 @@ encryptBtn.addEventListener('click', function encrypt() {
   var binary = document.getElementById('binary').value
 
   // gets the parity
-  if (document.getElementById('oddparity').checked) var parity = 'odd'
-  else if (document.getElementById('evenparity').checked) var parity = 'even'
+  if (document.getElementById('oddparity').checked){
+    var parity = 'odd'
+  } else if (document.getElementById('evenparity').checked){
+    var parity = 'even'
+  } 
 
   // declares the length of the binary number
   var codeLength = binary.length
