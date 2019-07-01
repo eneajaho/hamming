@@ -1,5 +1,7 @@
 // encrypting
-function encrypt() {
+var encryptBtn = document.getElementById('encrypt');
+
+encryptBtn.addEventListener('click', function encrypt() {
   // gets the binary number from website
   var binary = document.getElementById("binary").value;
 
@@ -21,16 +23,16 @@ function encrypt() {
 
   // declares the total encrypted bits number
   let totalBitNr = codeLength + controlBits;
-  // a simple alert to show how much bits we will have
-  let explain =
-    "  <div class=' pl-5 pr-5 alert alert-info' role='alert'> We will have <strong>" +
-    controlBits +
-    "</strong> control bits, <br>and the encrypted code will have: <strong>" +
-    totalBitNr +
-    "</strong> bits! </div>";
+  // // a simple alert to show how much bits we will have
+  // let explain =
+  //   "  <div class=' pl-5 pr-5 alert alert-info' role='alert'> We will have <strong>" +
+  //   controlBits +
+  //   "</strong> control bits, <br>and the encrypted code will have: <strong>" +
+  //   totalBitNr +
+  //   "</strong> bits! </div>";
 
-  // shows the alert
-  showText("explain", explain);
+  // // shows the alert
+  // showText("explain", explain);
 
   // creates an array of bits
   let bits = [];
@@ -67,7 +69,7 @@ function encrypt() {
   coded += "</code>";
 
   showText("coded", coded);
-}
+});
 
 // selects control bits, so if bits[i] is x than we do the calculations and change the bit
 function selectControlBits(bits, totalBitNr) {
@@ -154,7 +156,6 @@ function controlBitsNr(length) {
   return a;
 }
 
-// checks if the user has entered sth != 0 || 1
 function checkInput(binaryCode, length) {
   for (n = 0; n < length; n++) {
     if (binaryCode[n] != 0 && binaryCode[n] != 1) {

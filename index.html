@@ -20,49 +20,99 @@
   <div class="container">
     <br />
     <div class="jumbotron text-center">
-      <h3 class="text-center">
-        Binary to Hamming Convertor <i class="fas fa-lock"></i>
-      </h3>
-      <br />
-      <br />
       <div class="row">
-        <div class="col-sm-12 col-md-3"></div>
-
-        <div class="col-sm-12 col-md-6">
-          <div class="form-group">
-            <label class="lead" for="word">Binary Code</label>
-            <div class="container">
-              <div class="row">
-                <div class="pl-5 pr-5 pb-2 col-md-12 col-sm-12">
-                  <input type="text" class="form-control" id="binary" placeholder="Enter code" />
-                  <br />
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="oddparity" value="odd">
-                    <label class="form-check-label" for="inlineRadio1">Odd Parity</label>
+        <div class="col-md-6 col-sm-12">
+          <h3 class="text-center">
+            Binary to Hamming Convertor <i class="fas fa-lock"></i>
+          </h3>
+          <br />
+          <br />
+          <div class="row">
+          
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="lead" for="word">Binary Code</label>
+                
+                  <div class="row">
+                    <div class="pb-2 col-md-12 col-sm-12">
+                      <input type="text" class="form-control" id="binary" placeholder="Enter code" />
+                      <br />
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="oddparity" value="odd">
+                        <label class="form-check-label" for="inlineRadio1">Odd Parity</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="evenparity" value="even"
+                          checked>
+                        <label class="form-check-label" for="inlineRadio2">Even Parity</label>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12 col-sm-12 pt-3">
+                      <div id="encrypt" class="btn btn-primary">
+                        Encrypt
+                      </div>
+                    </div>
+                    <div class="pt-2 col-md-12 col-sm-12">
+                      <div class="mt-2 mb-2" id="error"></div>
+                      <div class="lead" id="explain"></div>
+                    </div>
                   </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="evenparity" value="even"
-                      checked>
-                    <label class="form-check-label" for="inlineRadio2">Even Parity</label>
-                  </div>
-                </div>
-                <br />
-                <div class="col-md-12 col-sm-12 pt-3">
-                  <div onclick="encrypt()" class="btn btn-primary">
-                    Encrypt
-                  </div>
-                </div>
-                <div class="pt-2 col-md-12 col-sm-12">
-                  <div class="mt-2 mb-2" id="error"></div>
-                  <div class="lead" id="explain"></div>
-                </div>
+                
               </div>
+              <div class='h1' id='coded'></div>
             </div>
           </div>
-          <div class='h1' id='coded'></div>
+          <br />
+                  <hr class="my-4 .d-none .d-sm-block .d-md-none">
+
         </div>
+        <div class="col-md-6 col-sm-12">
+          <h3 class="text-center">
+            Hamming to Binary Convertor <i class="fas fa-unlock"></i>
+          </h3>
+          <br />
+          <br />
+          <div class="row">
+          
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="lead" for="word">Hamming Code</label>
+                <div class="container">
+                  <div class="row">
+                    <div class="pb-2 col-md-12 col-sm-12">
+                      <input type="text" class="form-control" id="binary" placeholder="Enter code" />
+                      <br />
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="oddparityh" value="odd">
+                        <label class="form-check-label" for="inlineRadio1">Odd Parity</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="evenparityh" value="even">
+                        <label class="form-check-label" for="inlineRadio2">Even Parity</label>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12 col-sm-12 pt-3">
+                      <div id="decrypt" class="btn btn-primary">
+                        Decrypt
+                      </div>
+                    </div>
+                    <div class="pt-2 col-md-12 col-sm-12">
+                      <div class="mt-2 mb-2" id="error"></div>
+                      <div class="lead" id="explain"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='h1' id='decoded'></div>
+            </div>
+          </div>
+          <br />
+        </div>
+
       </div>
-      <br />
+
     </div>
   </div>
   </div>
