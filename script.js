@@ -7,9 +7,9 @@ encryptBtn.addEventListener('click', function encrypt() {
 
   // gets the parity
   if (document.getElementById('oddparity').checked){
-    var parity = 'odd'
+    parity = 'odd'
   } else if (document.getElementById('evenparity').checked){
-    var parity = 'even'
+    parity = 'even'
   } 
 
   // declares the length of the binary number
@@ -89,10 +89,14 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
 
   for (c = controlBitIndex; c < totalBitNr; c++) {
     if (controlBitIndex == 0) {
-      if (d % 2 == 0) if (bits[c] == 1) k++
+      if (d % 2 == 0) 
+        if (bits[c] == 1) 
+          k++
       d++
     } else {
-      if (d % (2 ** bitCounter * 2) < 2 ** bitCounter) if (bits[c] == 1) k++
+      if (d % (2 ** bitCounter * 2) < 2 ** bitCounter) 
+        if (bits[c] == 1) 
+          k++
       d++
     }
   }
