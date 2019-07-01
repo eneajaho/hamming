@@ -6,11 +6,8 @@ encryptBtn.addEventListener('click', function encrypt() {
   var binary = document.getElementById('binary').value
 
   // gets the parity
-  if (document.getElementById('oddparity').checked) {
-    var parity = 'odd'
-  } else if (document.getElementById('evenparity').checked) {
-    var parity = 'even'
-  }
+  if (document.getElementById('oddparity').checked) var parity = 'odd'
+  else if (document.getElementById('evenparity').checked) var parity = 'even'
 
   // declares the length of the binary number
   var codeLength = binary.length
@@ -40,9 +37,8 @@ encryptBtn.addEventListener('click', function encrypt() {
   // b - to add our bits, if we add bit, we increase b
   for (let a = 1, b = 0; a <= totalBitNr; a++) {
     // if a it's 0 or power of two add x to array else add binary bit and increase b
-    if (powerOfTwo(a) || a == 0) {
-      bits.push('x')
-    } else {
+    if (powerOfTwo(a) || a == 0) bits.push('x')
+    else {
       bits.push(binary[b])
       b++
     }
@@ -52,18 +48,14 @@ encryptBtn.addEventListener('click', function encrypt() {
 
   // creates a new array and starts the bits array from 1 so we can use the powers of 2
   var newBits = [null]
-  for (let a = 0; a < totalBitNr; a++) {
-    newBits.push(bits[a])
-  }
+  for (let a = 0; a < totalBitNr; a++) newBits.push(bits[a])
 
   // shows the number in the the webpage
   let coded = '<code> '
   for (let a = 1; a <= totalBitNr; a++) {
-    if (Math.log2(a) % 1 === 0 || a == 0) {
+    if (Math.log2(a) % 1 === 0 || a == 0)
       element = "<div class='control-bit'> " + newBits[a] + ' </div>'
-    } else {
-      element = newBits[a]
-    }
+    else element = newBits[a]
     coded += element
   }
   coded += '</code>'
@@ -79,11 +71,9 @@ function selectControlBits(bits, totalBitNr) {
     // check if bit is x
     if (bits[i] == 'x') {
       let changedBit = changeControlBit(i, bits, totalBitNr, bitCounter)
-      if (changedBit == 0) {
-        bits[i] = 0
-      } else if (changedBit == 1) {
-        bits[i] = 1
-      }
+      if (changedBit == 0) bits[i] = 0
+      else if (changedBit == 1) bits[i] = 1
+
       // after we do the calculations we increase the bitcounter
       bitCounter++
     }
@@ -96,44 +86,29 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
 
   for (c = controlBitIndex; c < totalBitNr; c++) {
     if (controlBitIndex == 0) {
-      if (d % 2 == 0) {
-        if (bits[c] == 1) {
-          k++
-        }
-      }
+      if (d % 2 == 0) if (bits[c] == 1) k++
       d++
     } else {
-      if (d % (2 ** bitCounter * 2) < 2 ** bitCounter) {
-        if (bits[c] == 1) {
-          k++
-        }
-      }
+      if (d % (2 ** bitCounter * 2) < 2 ** bitCounter) if (bits[c] == 1) k++
       d++
     }
   }
 
   // if even parity is checked in UI than we will have even parity and the function wil return respective 1 and 0
   if (parity == 'even') {
-    if (k % 2 != 0) {
-      return 1
-    } else {
-      return 0
-    }
+    if (k % 2 != 0) return 1
+    else return 0
   }
   // if odd parity is checked in UI than we will have even parity and the function wil return respective 1 and 0
   if (parity == 'odd') {
-    if (k % 2 != 0) {
-      return 0
-    } else {
-      return 1
-    }
+    if (k % 2 != 0) return 0
+    else return 1
   }
 }
 // source : https://stackoverflow.com/questions/30924280/what-is-the-best-way-to-determine-if-a-given-number-is-a-power-of-two
 
-function powerOfTwo(x) {
+function powerOfTwo(x)
   return Math.log2(x) % 1 === 0
-}
 
 //accepts the code length to find the hamming code length
 function controlBitsNr(length) {
