@@ -114,8 +114,9 @@ function changeControlBit(controlBitIndex, bits, totalBitNr, bitCounter) {
 }
 // source : https://stackoverflow.com/questions/30924280/what-is-the-best-way-to-determine-if-a-given-number-is-a-power-of-two
 
-function powerOfTwo(x)
+function powerOfTwo(x){
   return Math.log2(x) % 1 === 0
+}
 
 //accepts the code length to find the hamming code length
 function controlBitsNr(length) {
